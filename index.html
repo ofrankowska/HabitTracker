@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="litera.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="jumbotron text-center py-5">
+            <h1>Habit Tracker <small class="text-muted">Keep up the motivation!</small></h1>
+            <button id="openForm" type="button" class="btn btn-info btn-lg mt-4" data-toggle="modal"
+                data-target="#createHabit">Create
+                a new habit</button>
+            <form class="mt-5" style="display: none">
+                <div class="form-group">
+                    <label class="text-info h4" for="exampleInputEmail1">Name your habit:</label>
+                    <input  type="habitName" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                </div>
+                <div class="form-group">
+                    <label class="text-info h4" for="goal">Set your goal:</label>
+                            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>
+                            <span class="text-info">or more times per day</span>
+
+
+
+                </div>
+                <button id="createHabit" type="submit" class="btn btn-info btn-lg mt-4">Create</button>
+            </form>
+        </div>
+    </div>
+
+
+
+    <!--=====================================
+    HABIT MODAL
+    =====================================-->
+
+
+
+    <script src="app.js"></script>
+</body>
+
+</html>
