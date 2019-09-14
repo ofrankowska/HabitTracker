@@ -6,16 +6,17 @@ class Storage{
         } else {
             habits = JSON.parse(localStorage.getItem('habits'));
         }
+        return habits;
     }
     static addHabit(habit){
-        const habits = this.getHabits;
+        const habits = this.getHabits();
         habits.push(habit);
         localStorage.setItem('habits', JSON.stringify(habits));
     }
     static removeHabit(habit){
-        const habits = this.getHabits;
+        const habits = this.getHabits();
         habits.forEach((item, index) => {
-            if (item === habit){
+            if (item = habit){
                 habits.splice(index, 1)
             }
         });

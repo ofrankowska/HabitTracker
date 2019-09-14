@@ -5,55 +5,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="litera.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.2/css/all.css"
+        integrity="sha384-rtJEYb85SiYWgfpCr0jn174XgJTn4rptSOQsMroFBPQSGLdOC5IbubP6lJ35qoM9" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/litera.css">
+    <link rel="stylesheet" href="css/custom.css">
     <title>Document</title>
 </head>
 
 <body>
     <div class="container mt-5">
         <div class="jumbotron text-center py-5">
-            <h1>Habit Tracker <small class="text-muted">Keep up the motivation!</small></h1>
-            <button id="openForm" type="button" class="btn btn-info btn-lg mt-4" data-toggle="modal"
-                data-target="#createHabit">Create
+            <h1>Habit Tracker <small class="text-muted">keep up the motivation</small></h1>
+            <button id="openForm" type="button" class="btn btn-dark btn-lg mt-4">Create
                 a new habit</button>
-            <form class="mt-5" style="display: none">
+            <form class="mt-3" style="display: none">
+
+                <div style="display: none" class="alert alert-dismissible alert-danger">
+                    <strong>Oh snap!</strong> You left some inputs empty.
+                </div>
+
                 <div class="form-group">
-                    <label class="text-info h4" for="exampleInputEmail1">Name your habit:</label>
-                    <input  type="habitName" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <label class="text-dark h4 mb-3" for="exampleInputEmail1">Name your habit:</label>
+                    <input type="habitName" class="form-control" id="name" aria-describedby="emailHelp">
+
                 </div>
                 <div class="form-group">
-                    <label class="text-info h4" for="goal">Set your goal:</label>
-                            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                                <option value="10">10</option>
+                    <label class="text-dark h4 mb-3" for="goal">Set your goal:</label>
+                    <div class="row">
+                        <div class="col">
+                            <input type="goal" class="form-control" id="goal" aria-describedby="emailHelp" placeholder="How many times">
+
+                        </div>
+                        <div class="col">
+                            <select id="interval" class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+                                <option value="day">per day</option>
+                                <option value="week">per week</option>
+                                <option value="month">per month</option>
                             </select>
-                            <span class="text-info">or more times per day</span>
 
-
-
+                        </div>
+                    </div>
                 </div>
-                <button id="createHabit" type="submit" class="btn btn-info btn-lg mt-4">Create</button>
+                <button id="createHabit" type="submit" class="btn btn-dark btn-lg mt-4">Create</button>
+                <button id="cancelForm" type="reset"  class="btn btn-light btn-lg mt-4">Cancel</button>
             </form>
         </div>
+        <div id="habitList">
+
+        </div>
+
+
+
     </div>
 
 
 
-    <!--=====================================
-    HABIT MODAL
-    =====================================-->
+    </div>
 
-
-
-    <script src="app.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/Habit.js"></script>
+    <script src="js/Storage.js"></script>
 </body>
 
 </html>
