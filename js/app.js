@@ -20,9 +20,9 @@ openFormBtn.addEventListener('click', () => {
 form.addEventListener('submit', (e) => {
     const name = document.querySelector('#name').value;
     const goal = document.querySelector('#goal').value;
-    const interval = document.querySelector('#interval').value;
+    // const interval = document.querySelector('#interval').value;
     e.preventDefault();
-    if (name === '' || interval ==='') {
+    if (name === '' || goal ==='') {
         const alert = form.querySelector('.alert');
         alert.style.display ="";
     } else {
@@ -31,7 +31,7 @@ form.addEventListener('submit', (e) => {
         document.querySelector('#name').value = '';
         document.querySelector('#goal').value = '';
 
-        const habit = new Habit(name, goal, interval);
+        const habit = new Habit(name, goal);
         habit.addHabitToList();
         Storage.addHabit(habit);
     }
@@ -44,10 +44,16 @@ cancelFormBtn.addEventListener('click', () => {
 })
 
 document.addEventListener('DOMContentLoaded', () => {
+    const day = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()).getTime();
+    if (day !== Storage.getDate()){
+        console.log('different date')
+        Storage.changeDate(day);
+        Storage.updateComplete();
+    }
     const habits = Storage.getHabits();
     habits.forEach((habit) => {
         console.log(habit)
-        habit = new Habit(habit.name, habit.goal);
+        habit = new Habit(habit.name, habit.goal, habit.complete);
         habit.addHabitToList();
     })
 }
@@ -60,17 +66,21 @@ habitList.addEventListener('click', (e) => {
         let complete = div.lastElementChild.firstElementChild.textContent;
         const goal = div.lastElementChild.lastElementChild.textContent;
         const progressBar = div.children[1].firstElementChild.firstElementChild;
+        const name = div.firstElementChild.textContent;
+
         if (button.classList.contains('progress-btn')) {
+            const habit = new Habit(name, goal, complete);
             complete ++;
+            Storage.updateHabit(habit, complete);
             progressBar.classList.add('progress-bar-striped', 'progress-bar-animated');
             setTimeout(() => {
                 progressBar.classList.remove('progress-bar-striped', 'progress-bar-animated');
-            },1000)
+            },800)
             progressBar.style.width = `${complete/goal * 100}%`;
             div.lastElementChild.firstElementChild.textContent = complete;
+        
         } else if (button.classList.contains('delete-btn')) {
-            const name = div.firstElementChild.textContent;
-            const habit = new Habit(name, goal);
+            const habit = new Habit(name, goal, complete);
             div.remove();
             Storage.removeHabit(habit)
         }

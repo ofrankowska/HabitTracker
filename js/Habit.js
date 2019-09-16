@@ -1,9 +1,9 @@
 class Habit {
-    constructor(name, goal) {
+    constructor(name, goal, complete = 0) {
         this.name = name;
         this.goal = goal;
         // this.interval = interval;
-        this.complete = 0;
+        this.complete = complete;
         this.div = document.createElement('div');
     }
     addHabitToList() {
@@ -12,7 +12,7 @@ class Habit {
         <h4>${this.name}</h4>
         <div class="d-flex">
             <div class="progress">
-                <div class="progress-bar bg-info" role="progressbar" style="width: 0%" aria-valuenow="25"
+                <div class="progress-bar bg-info" role="progressbar" style="width: ${this.complete/this.goal * 100}%" aria-valuenow="25"
                     aria-valuemin="0" aria-valuemax="100"></div>
             </div>
             <button type="button" class="btn btn-secondary progress-btn"><i class="fas fa-chevron-right"></i></button>
