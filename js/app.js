@@ -56,17 +56,24 @@ document.addEventListener('DOMContentLoaded', () => {
 habitList.addEventListener('click', (e) => {
     if (e.target.tagName === 'BUTTON' || e.target.tagName === 'I') {
         const button = e.target.tagName === 'BUTTON' ? e.target : e.target.parentNode;
-        const habit = button.parentNode.parentNode;
-        console.log(habit)
-        // habit = new Habit()
-
-        // if (button.classList.contains('progress-btn')) {
-        //     habit.addProgress();
-
-        // } else if (button.classList.contains('delete-btn')) {
-        //     habit.remove();
-        //     Storage.removeHabit(habit)
-        // }
+        const div = button.parentNode.parentNode;
+        let complete = div.lastElementChild.firstElementChild.textContent;
+        const goal = div.lastElementChild.lastElementChild.textContent;
+        const progressBar = div.children[1].firstElementChild.firstElementChild;
+        if (button.classList.contains('progress-btn')) {
+            complete ++;
+            progressBar.classList.add('progress-bar-striped', 'progress-bar-animated');
+            setTimeout(() => {
+                progressBar.classList.remove('progress-bar-striped', 'progress-bar-animated');
+            },1000)
+            progressBar.style.width = `${complete/goal * 100}%`;
+            div.lastElementChild.firstElementChild.textContent = complete;
+        } else if (button.classList.contains('delete-btn')) {
+            const name = div.firstElementChild.textContent;
+            const habit = new Habit(name, goal);
+            div.remove();
+            Storage.removeHabit(habit)
+        }
     } 
    
 }) 
