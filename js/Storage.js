@@ -41,12 +41,12 @@ class Storage {
         let day;
         if (localStorage.getItem('day') === null) {
             
-            day = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()).setTime();
+            day = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()).getTime();
             localStorage.setItem('day', JSON.stringify(day));
         } else {
             day = JSON.parse(localStorage.getItem('day'));
         }
-        console.log(day)
+        // 1571263200000
         return day;
     }
     static changeDate(day){

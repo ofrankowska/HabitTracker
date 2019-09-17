@@ -33,7 +33,8 @@
                     <label class="text-dark h4 mb-3" for="goal">Set your goal:</label>
                     <div class="row">
                         <div class="col">
-                            <input type="goal" class="form-control" id="goal" aria-describedby="emailHelp" placeholder="How many times">
+                            <input type="goal" class="form-control" id="goal" aria-describedby="emailHelp"
+                                placeholder="How many times">
 
                         </div>
                         <div class="col">
@@ -46,8 +47,46 @@
                         </div>
                     </div>
                 </div>
+                <div class="form-group colorPicker">
+                    <label class="text-dark h4 mb-3">Choose a color:</label>
+                    <br>
+
+                    <div class="custom-control custom-control-inline custom-checkbox" id="info">
+                        <input type="checkbox" class="custom-control-input" id="color1" name="colorPicker" checked>
+                        <label class="custom-control-label" for="color1"></label>
+                    </div>
+
+                    <div class="custom-control custom-control-inline custom-checkbox" id="dark">
+                        <input type="checkbox" class="custom-control-input" id="color2" name="colorPicker">
+                        <label class="custom-control-label" for="color2"></label>
+                    </div>
+
+                    <div class="custom-control custom-control-inline custom-checkbox" id="success">
+                        <input type="checkbox" class="custom-control-input" id="color3" name="colorPicker">
+                        <label class="custom-control-label" for="color3"></label>
+                    </div>
+
+                    <div class="custom-control custom-control-inline custom-checkbox" id="warning">
+                        <input type="checkbox" class="custom-control-input" id="color4" name="colorPicker">
+                        <label class="custom-control-label" for="color4"></label>
+                    </div>
+
+                    <div class="custom-control custom-control-inline custom-checkbox" id="primary">
+                        <input type="checkbox" class="custom-control-input" id="color5" name="colorPicker">
+                        <label class="custom-control-label" for="color5"></label>
+                    </div>
+
+                    <div class="custom-control custom-control-inline custom-checkbox" id="danger">
+                        <input type="checkbox" class="custom-control-input" id="color6" name="colorPicker">
+                        <label class="custom-control-label" for="color6"></label>
+                    </div>
+
+
+
+
+                </div>
                 <button id="createHabit" type="submit" class="btn btn-dark btn-lg mt-4">Create</button>
-                <button id="cancelForm" type="reset"  class="btn btn-light btn-lg mt-4">Cancel</button>
+                <button id="cancelForm" type="reset" class="btn btn-light btn-lg mt-4">Cancel</button>
             </form>
         </div>
         <div id="habitList">
