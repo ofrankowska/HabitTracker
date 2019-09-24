@@ -5,11 +5,12 @@ class Habit {
         // this.interval = interval;
         this.complete = complete;
         this.color = color;
-        this.div = document.createElement('div');
     }
     addHabitToList() {
+        const div = document.createElement('div');
         const habitList = document.querySelector('#habitList');
-        this.div.innerHTML = `
+        div.innerHTML = 
+        `
         <h4>${this.name}</h4>
         <div class="d-flex">
             <div class="progress">
@@ -22,7 +23,7 @@ class Habit {
         </div>
         <p class="text-muted"><span class ="complete">${this.complete}</span> / <span class="goal">${this.goal}</span></p>
         `;
-        habitList.appendChild(this.div);
+        habitList.appendChild(div);
     }
 }
 

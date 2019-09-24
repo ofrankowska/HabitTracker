@@ -33,16 +33,15 @@ class Storage {
             }
         });
         localStorage.setItem('habits', JSON.stringify(habits));
-
     }
 
     // Storage of the date in order to change all the habits' complete value to 0 every day
     static getDate(){
         let day;
         if (localStorage.getItem('day') === null) {
-            
             day = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()).getTime();
             localStorage.setItem('day', JSON.stringify(day));
+
         } else {
             day = JSON.parse(localStorage.getItem('day'));
         }
@@ -52,7 +51,6 @@ class Storage {
     static changeDate(day){
         localStorage.setItem('day', JSON.stringify(day));
     }
-
     static updateComplete(){
         const habits = this.getHabits();
         habits.forEach((habit, index) => {

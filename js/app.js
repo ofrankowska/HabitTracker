@@ -1,6 +1,5 @@
 const openFormBtn = document.querySelector('#openForm');
 const form = document.querySelector('form');
-const createHabitBtn = form.querySelector('#createHabit');
 const cancelFormBtn = form.querySelector('#cancelForm');
 const habitList = document.querySelector('#habitList');
 const colorPicker = form.querySelector('.colorPicker');
@@ -14,15 +13,12 @@ function hideElement(element) {
     element.style.display = 'none';
 }
 
-function getColor(){
-    let color = 'info';
-        for (let i = 0; i < checkboxArray.length; i++) {
-            const checkbox = checkboxArray[i];
-            if (checkbox.firstElementChild.checked){
-                color = checkbox.id;
-            }
+function getColor() {
+    for (let checkbox of checkboxArray){
+        if (checkbox.firstElementChild.checked) {
+            return checkbox.id;
         }
-    return color;
+    }
 }
 
 openFormBtn.addEventListener('click', () => {
@@ -31,15 +27,14 @@ openFormBtn.addEventListener('click', () => {
 })
 
 colorPicker.addEventListener('change', (e) => {
-    for (let i = 0; i < checkboxArray.length; i++) {
-        const checkbox = checkboxArray[i];
-        if (checkbox.firstElementChild.checked){
-            checkbox.firstElementChild.checked = '';
+    for (let checkbox of checkboxArray){
+        const checkboxInput = checkbox.firstElementChild;
+        if (checkboxInput.checked) {
+            checkboxInput.checked = '';
         }
     }
     e.target.checked = 'checked'
 })
-
 
 form.addEventListener('submit', (e) => {
     const name = document.querySelector('#name').value;
@@ -48,9 +43,9 @@ form.addEventListener('submit', (e) => {
     // const interval = document.querySelector('#interval').value;
     e.preventDefault();
 
-    if (name === '' || goal ==='') {
+    if (name === '' || goal === '') {
         const alert = form.querySelector('.alert');
-        alert.style.display = "";
+        alert.style.display = '';
 
     } else {
         hideElement(form);
@@ -59,7 +54,6 @@ form.addEventListener('submit', (e) => {
         document.querySelector('#goal').value = '';
 
         const habit = new Habit(name, goal, color);
-        console.log(habit)
         habit.addHabitToList();
         Storage.addHabit(habit);
     }
@@ -73,8 +67,8 @@ cancelFormBtn.addEventListener('click', () => {
 
 document.addEventListener('DOMContentLoaded', () => {
     const day = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()).getTime();
-    if (day !== Storage.getDate()){
-        console.log('different date')
+    if (day !== Storage.getDate()) {
+        console.log('new day, new beginning')
         Storage.changeDate(day);
         Storage.updateComplete();
     }
@@ -95,23 +89,23 @@ habitList.addEventListener('click', (e) => {
         const progressBar = div.children[1].firstElementChild.firstElementChild;
         const color = progressBar.id;
         const name = div.firstElementChild.textContent;
+        
+        const habit = new Habit(name, goal, color, complete);
 
         if (button.classList.contains('progress-btn')) {
-            const habit = new Habit(name, goal, color, complete);
-            complete ++;
+            complete++;
             Storage.updateHabit(habit, complete);
             progressBar.classList.add('progress-bar-striped', 'progress-bar-animated');
             setTimeout(() => {
                 progressBar.classList.remove('progress-bar-striped', 'progress-bar-animated');
-            },800)
-            progressBar.style.width = `${complete/goal * 100}%`;
+            }, 800)
+            progressBar.style.width = `${complete / goal * 100}%`;
             div.lastElementChild.firstElementChild.textContent = complete;
-        
+
         } else if (button.classList.contains('delete-btn')) {
-            const habit = new Habit(name, goal, color, complete);
             div.remove();
             Storage.removeHabit(habit)
         }
-    } 
-   
+    }
+
 }) 
