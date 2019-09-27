@@ -5,6 +5,7 @@
 .show{
     display: inline-block;
 }
+
 .progress {
     height: 55px;
     border-radius: 0.25rem 0 0 0.25rem;
