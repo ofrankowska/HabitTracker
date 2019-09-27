@@ -14,13 +14,13 @@
 
 <body>
     <div class="container mt-3">
-        <div class="jumbotron text-center py-5">
+        <header class="jumbotron text-center py-5">
             <h1>Habit Tracker</h1><h4> <small class="text-muted">keep your motivation flying high</small></h4>
-            <button id="openForm" type="button" class="btn btn-dark btn-lg mt-2">Create
+            <button id="openForm" type="button" class="btn btn-dark btn-lg mt-2 show">Create
                 a new habit</button>
-            <form class="mt-3" style="display: none">
+            <form class="mt-3 hide">
 
-                <div style="display: none" class="alert alert-dismissible alert-danger">
+                <div class="alert alert-dismissible alert-danger hide">
                     <strong>Oh snap!</strong> You left some inputs empty.
                 </div>
 
@@ -88,8 +88,8 @@
                 <button id="createHabit" type="submit" class="btn btn-dark btn-lg mt-4">Create</button>
                 <button id="cancelForm" type="reset" class="btn btn-light btn-lg mt-4">Cancel</button>
             </form>
-        </div>
-        <div id="habitList">
+        </header>
+        <div id="habitContainer">
 
         </div>
 
@@ -104,6 +104,7 @@
     <script src="js/app.js"></script>
     <script src="js/Habit.js"></script>
     <script src="js/Storage.js"></script>
+    <script src="js/Habits.js"></script>
 </body>
 
 </html>

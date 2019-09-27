@@ -35,7 +35,8 @@ class Storage {
         localStorage.setItem('habits', JSON.stringify(habits));
     }
 
-    // Storage of the date in order to change all the habits' complete value to 0 every day
+    // Date storage
+
     static getDate(){
         let day;
         if (localStorage.getItem('day') === null) {
