@@ -10,7 +10,7 @@ class Habit {
     addHabit() {
         habitContainer.innerHTML += 
         `
-        <div id=${this.index}>
+        <div id=${this.index} class="showHabit">
             <h4>${this.name}</h4>
             <div class="d-flex">
                 <div class="progress">

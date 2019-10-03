@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('form');
     const checkboxArray = form.querySelectorAll('.custom-checkbox');
     const habitContainer = document.querySelector('#habitContainer');
+    const alert = form.querySelector('.alert');
 
     function updateDate() {
         const day = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate())
@@ -35,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
     form.querySelector('.colorPicker').addEventListener('change', (e) => {
-    // Whenever a checkbox is checked, uncheck the previously checked one
+        // Whenever a checkbox is checked, uncheck the previously checked one
         for (let checkbox of checkboxArray) {
             const checkboxInput = checkbox.firstElementChild;
             if (checkboxInput.checked) {
@@ -59,11 +60,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Check if there are any fields that were left blank
         if (name === '' || goal === '') {
-            const alert = form.querySelector('.alert');
             toggleClasses(alert, 'hide', 'show');
-            setTimeout(() => toggleClasses(alert, 'hide', 'show'), 3000)
 
         } else {
+            // Close alert if it's displayed
+            if (alert.classList.contains('show')){
+                toggleClasses(alert, 'hide', 'show');
+            }
+
             // Close the form
             toggleClasses(openFormBtn, 'hide', 'show');
             toggleClasses(form, 'hide', 'show');
@@ -77,6 +81,12 @@ document.addEventListener('DOMContentLoaded', () => {
             habits.add(habit);
             Storage.addHabit(habit);
 
+        }
+    })
+
+    document.querySelector('#cancelForm').addEventListener('click', () => {
+        if (alert.classList.contains('show')){
+            toggleClasses(alert, 'hide', 'show');
         }
     })
 
@@ -109,9 +119,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 div.lastElementChild.firstElementChild.textContent = habit.complete;
 
-            // Check if the remove button was clicked
+                // Check if the remove button was clicked
             } else if (button.classList.contains('delete-btn')) {
-                div.remove();
+                div.classList.add('delete');
+                setTimeout(() => {
+                    div.remove();
+                }, 500)
                 Storage.removeHabit(habit)
                 habits.remove(habit);
             }

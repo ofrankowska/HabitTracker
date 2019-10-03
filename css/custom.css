@@ -1,9 +1,47 @@
 .hide{
     display: none;
+    
 }
 
 .show{
     display: inline-block;
+}
+
+form, .alert{
+    animation: fadeIn .8s ease-in, swipeDown .5s ease-in;
+}
+
+@keyframes fadeIn {
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+@keyframes swipeDown{
+    0%{
+        transform: translateY(-40px);
+    }
+    100%{
+        transform: translateY(0);
+    }
+}
+
+
+.showHabit{
+    animation: swipeUp .5s ease;
+
+}
+
+@keyframes swipeUp{
+    0%{
+        transform: translateY(40px);    
+    }
+    100%{
+        transform: translateY(0);
+    }
 }
 
 .progress {
@@ -22,13 +60,27 @@
     width: 7.5%;
 }
 
+.delete{
+    animation: scaleDown .5s ease-in 0.1s;
+}
+
+@keyframes scaleDown{
+    10%{
+        transform: scale(1.1);
+    }
+    100%{
+        transform: scale(0)
+    }
+}
+
+/* checkbox  */
+
 .custom-control-label::before,
 .custom-control-label::after{
     border-radius: 15%;
     height: 30px;
     width: 30px;
 }
-
 
 #info .custom-control-label::before,
 #info .custom-control-label::after{
