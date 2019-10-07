@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // DOM Elements
-    const openFormBtn = document.querySelector('#openForm');
     const form = document.querySelector('form');
     const checkboxArray = form.querySelectorAll('.custom-checkbox');
     const habitContainer = document.querySelector('#habitContainer');
@@ -28,12 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // If the class exists, remove it, if not, then add it
         classNames.forEach(className => element.classList.toggle(className));
     }
-
-    openFormBtn.addEventListener('click', () => {
-        // Open the form
-        toggleClasses(openFormBtn, 'hide', 'show');
-        toggleClasses(form, 'hide', 'show');
-    })
 
     form.querySelector('.colorPicker').addEventListener('change', (e) => {
         // Whenever a checkbox is checked, uncheck the previously checked one
@@ -64,13 +57,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } else {
             // Close alert if it's displayed
-            if (alert.classList.contains('show')){
+            if (alert.classList.contains('show')) {
                 toggleClasses(alert, 'hide', 'show');
             }
 
-            // Close the form
-            toggleClasses(openFormBtn, 'hide', 'show');
-            toggleClasses(form, 'hide', 'show');
+            // Close modal
+            $('#formModal').modal("hide");
 
             // Set form inputs to empty strings
             document.querySelector('#name').value = '';
@@ -84,16 +76,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     })
 
-    document.querySelector('#cancelForm').addEventListener('click', () => {
-        if (alert.classList.contains('show')){
+    form.querySelector('#cancelForm').addEventListener('click', () => {
+        if (alert.classList.contains('show')) {
             toggleClasses(alert, 'hide', 'show');
         }
-    })
+        // Set form inputs to empty strings
+        document.querySelector('#name').value = '';
+        document.querySelector('#goal').value = '';
 
-    form.querySelector('#cancelForm').addEventListener('click', () => {
-        // Close the form
-        toggleClasses(openFormBtn, 'hide', 'show');
-        toggleClasses(form, 'hide', 'show');
     })
 
     habitContainer.addEventListener('click', (e) => {

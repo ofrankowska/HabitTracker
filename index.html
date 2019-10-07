@@ -9,97 +9,125 @@
         integrity="sha384-rtJEYb85SiYWgfpCr0jn174XgJTn4rptSOQsMroFBPQSGLdOC5IbubP6lJ35qoM9" crossorigin="anonymous">
     <link rel="stylesheet" href="css/litera.css">
     <link rel="stylesheet" href="css/custom.css">
-    <title>Document</title>
+    <title>Habit Tracker</title>
 </head>
 
 <body>
     <div class="container mt-3">
         <header class="jumbotron text-center py-5">
-            <h1>Habit Tracker</h1><h4> <small class="text-muted">keep your motivation flying high</small></h4>
-            <button id="openForm" type="button" class="btn btn-dark btn-lg mt-2 show">Create
-                a new habit</button>
-            <form class="mt-3 hide">
+            <h1>Habit Tracker</h1>
+            <h4> <small class="text-muted">keep your motivation flying high</small></h4>
+            <button type="button" class="btn btn-dark btn-lg mt-2" data-toggle="modal"
+                data-target="#formModal">Create a new habit</button>
 
-                <div class="alert alert-dismissible alert-danger hide">
-                    <strong>Oh snap!</strong> You left some inputs empty.
-                </div>
-
-                <div class="form-group">
-                    <label class="text-dark h4 mb-3" for="exampleInputEmail1">Name your habit:</label>
-                    <input type="habitName" class="form-control" id="name" aria-describedby="emailHelp">
-
-                </div>
-                <div class="form-group">
-                    <label class="text-dark h4 mb-3" for="goal">Set your goal:</label>
-                    <div class="row">
-                        <div class="col">
-                            <input type="goal" class="form-control" id="goal" aria-describedby="emailHelp"
-                                placeholder="How many times">
-
+            <!-- modal -->
+            <div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="formModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header text-white bg-dark">
+                            <h5 class="modal-title" id="formModalLabel">Create a new habit</h5>
                         </div>
-                        <div class="col">
-                            <select id="interval" class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-                                <option value="day">per day</option>
-                                <!-- <option value="week">per week</option>
+                        <div class="modal-body">
+                            <form class="mt-3">
+
+                                <div class="alert alert-dismissible alert-danger hide">
+                                    <strong>Oh snap!</strong> You left some inputs empty.
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="text-dark h4 mb-3" for="exampleInputEmail1">Name your habit:</label>
+                                    <input type="habitName" class="form-control" id="name" aria-describedby="emailHelp">
+
+                                </div>
+                                <div class="form-group">
+                                    <label class="text-dark h4 mb-3" for="goal">Set your goal:</label>
+                                    <div class="row">
+                                        <div class="col">
+                                            <input type="goal" class="form-control" id="goal"
+                                                aria-describedby="emailHelp" placeholder="How many times">
+
+                                        </div>
+                                        <div class="col">
+                                            <select id="interval" class="custom-select mr-sm-2"
+                                                id="inlineFormCustomSelect">
+                                                <option value="day">per day</option>
+                                                <!-- <option value="week">per week</option>
                                 <option value="month">per month</option> -->
-                            </select>
+                                            </select>
 
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group colorPicker pb-4">
+                                    <label class="text-dark h4 mb-3">Choose a color:</label>
+                                    <br>
+
+                                    <div class="custom-control custom-control-inline custom-checkbox" id="info">
+                                        <input type="checkbox" class="custom-control-input" id="color1"
+                                            name="colorPicker" checked>
+                                        <label class="custom-control-label" for="color1"></label>
+                                    </div>
+
+                                    <div class="custom-control custom-control-inline custom-checkbox" id="dark">
+                                        <input type="checkbox" class="custom-control-input" id="color2"
+                                            name="colorPicker">
+                                        <label class="custom-control-label" for="color2"></label>
+                                    </div>
+
+                                    <div class="custom-control custom-control-inline custom-checkbox" id="success">
+                                        <input type="checkbox" class="custom-control-input" id="color3"
+                                            name="colorPicker">
+                                        <label class="custom-control-label" for="color3"></label>
+                                    </div>
+
+                                    <div class="custom-control custom-control-inline custom-checkbox" id="warning">
+                                        <input type="checkbox" class="custom-control-input" id="color4"
+                                            name="colorPicker">
+                                        <label class="custom-control-label" for="color4"></label>
+                                    </div>
+
+                                    <div class="custom-control custom-control-inline custom-checkbox" id="primary">
+                                        <input type="checkbox" class="custom-control-input" id="color5"
+                                            name="colorPicker">
+                                        <label class="custom-control-label" for="color5"></label>
+                                    </div>
+
+                                    <div class="custom-control custom-control-inline custom-checkbox" id="danger">
+                                        <input type="checkbox" class="custom-control-input" id="color6"
+                                            name="colorPicker">
+                                        <label class="custom-control-label" for="color6"></label>
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer ">
+                                    <button id="createHabit" type="submit"
+                                        class="btn btn-dark btn-lg mt-4" >Create</button>
+                                    <button id="cancelForm" type="reset" class="btn btn-light btn-lg mt-4"
+                                        data-dismiss="modal">Cancel</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
-                <div class="form-group colorPicker">
-                    <label class="text-dark h4 mb-3">Choose a color:</label>
-                    <br>
-
-                    <div class="custom-control custom-control-inline custom-checkbox" id="info">
-                        <input type="checkbox" class="custom-control-input" id="color1" name="colorPicker" checked>
-                        <label class="custom-control-label" for="color1"></label>
-                    </div>
-
-                    <div class="custom-control custom-control-inline custom-checkbox" id="dark">
-                        <input type="checkbox" class="custom-control-input" id="color2" name="colorPicker">
-                        <label class="custom-control-label" for="color2"></label>
-                    </div>
-
-                    <div class="custom-control custom-control-inline custom-checkbox" id="success">
-                        <input type="checkbox" class="custom-control-input" id="color3" name="colorPicker">
-                        <label class="custom-control-label" for="color3"></label>
-                    </div>
-
-                    <div class="custom-control custom-control-inline custom-checkbox" id="warning">
-                        <input type="checkbox" class="custom-control-input" id="color4" name="colorPicker">
-                        <label class="custom-control-label" for="color4"></label>
-                    </div>
-
-                    <div class="custom-control custom-control-inline custom-checkbox" id="primary">
-                        <input type="checkbox" class="custom-control-input" id="color5" name="colorPicker">
-                        <label class="custom-control-label" for="color5"></label>
-                    </div>
-
-                    <div class="custom-control custom-control-inline custom-checkbox" id="danger">
-                        <input type="checkbox" class="custom-control-input" id="color6" name="colorPicker">
-                        <label class="custom-control-label" for="color6"></label>
-                    </div>
-
-
-
-
-                </div>
-                <button id="createHabit" type="submit" class="btn btn-dark btn-lg mt-4">Create</button>
-                <button id="cancelForm" type="reset" class="btn btn-light btn-lg mt-4">Cancel</button>
-            </form>
+            </div>
         </header>
         <div id="habitContainer">
 
         </div>
 
 
-
     </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 
-
-
-    </div>
 
     <script src="js/app.js"></script>
     <script src="js/Habit.js"></script>

@@ -113,4 +113,8 @@ form, .alert{
     background-color: #d9534f;
 }
 
+.modal-footer,
+.modal-header{
+    justify-content: center;
+}
 
