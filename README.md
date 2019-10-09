@@ -10,4 +10,5 @@ Habit tracker helps you create healthy routines by enabling you to set goals and
   <li>ES2015</li>
   <li>Local Storage</li>
   <li>Bootstrap</li>
+  <li>CSS Animations</li>
 </ul>
