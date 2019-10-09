@@ -1,6 +1,6 @@
 # HabitTracker
 
-Habit tracker helps you create healthy routines by enabling you to set goals and keeping track of your habits. 
+Habit tracker helps you create healthy routines by enabling you to set goals and keep track of daily achievements. 
 
 # 
 <ul>
