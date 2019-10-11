@@ -5,12 +5,12 @@ class Habit {
         // this.interval = interval;
         this.complete = complete;
         this.color = color;
-        this.index = new Date().getTime();
+        this.id = uuidv1();
     }
     addHabit() {
         habitContainer.innerHTML += 
         `
-        <div id=${this.index} class="showHabit">
+        <div id=${this.id} class="showHabit">
             <h4>${this.name}</h4>
             <div class="d-flex">
                 <div class="progress">
