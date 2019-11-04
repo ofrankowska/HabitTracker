@@ -11,6 +11,13 @@ body{
     background: #0c1e36 !important;
     border: none;
 }
+.btn-dark:hover{
+    color: #275DAB !important;
+
+}
+.btn-outline-secondary:hover{
+    background: #275DAB !important;
+}
 
 @media (max-width: 767.98px) {
     h1{
