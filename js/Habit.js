@@ -1,11 +1,11 @@
 class Habit {
-    constructor(name, goal, color, complete = 0) {
+    constructor(name, goal, color, id, complete = 0) {
         this.name = name;
         this.goal = goal;
         // this.interval = interval;
         this.complete = complete;
         this.color = color;
-        this.id = uuidv1();
+        this.id = id;
     }
     addHabit() {
         habitContainer.innerHTML += 

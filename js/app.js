@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
         e.target.checked = 'checked'
     })
 
-
+    // When the create habit form is submitted
     form.addEventListener('submit', (e) => {
         // DOM Elements
         const name = document.querySelector('#name').value;
@@ -78,26 +78,14 @@ document.addEventListener('DOMContentLoaded', () => {
             // Close modal
             $('#formModal').modal("hide");
 
-            // Set form inputs to empty strings
-            document.querySelector('#name').value = '';
-            document.querySelector('#goal').value = '';
-
             // Create a habit
-            const habit = new Habit(name, goal, color)
+            const habit = new Habit(name, goal, color, uuidv1())
             habits.add(habit);
             Storage.addHabit(habit);
 
         }
     })
-
-    // form.querySelector('#cancelForm').addEventListener('click', () => {
-    //     // Close displayed alerts
-    //     closeAlerts();
-    //     // Set form inputs to empty strings
-    //     document.querySelector('#name').value = '';
-    //     document.querySelector('#goal').value = '';
-
-    // })
+    // When the hide instance method has been called on create habit modal
     $('#formModal').on('hide.bs.modal', function (e) {
         // Close displayed alerts
         closeAlerts();
@@ -106,6 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector('#goal').value = '';
 
     })
+
     habitContainer.addEventListener('click', (e) => {
         if (e.target.tagName === 'BUTTON' || e.target.tagName === 'I') {
             // DOM Elements
@@ -139,8 +128,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     div.classList.add('delete');
                     setTimeout(() => {
                         div.remove();
-                        Storage.removeHabit(habit)
+                        Storage.removeHabit(habit.id)
                         habits.remove(habit);
+                        console.log(habits.habitArr)
                     }, 500)
 
                 })

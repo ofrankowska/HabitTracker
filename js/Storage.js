@@ -15,10 +15,11 @@ class Storage {
         habits.push(habit);
         localStorage.setItem('habits', JSON.stringify(habits));
     }
-    static removeHabit(habit) {
+    static removeHabit(id) {
         const habits = this.getHabits();
-        habits.forEach((item, index) => {
-            if (item = habit) {
+        habits.forEach((habit, index) => {
+            console.log(habit.id, id)
+            if (habit.id == id) {
                 habits.splice(index, 1)
             }
         });
