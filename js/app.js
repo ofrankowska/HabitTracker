@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // If the class exists, remove it, if not, then add it
         classNames.forEach(className => element.classList.toggle(className));
     }
-    function closeAlerts(){
+    function closeAlerts() {
         document.querySelectorAll('.alert').forEach(alert => {
             if (alert.classList.contains('show')) {
                 toggleClasses(alert, 'hide', 'show');
@@ -65,11 +65,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (name === '' || goal === '') {
             toggleClasses(emptyInputAlert, 'hide', 'show');
             allowSubmit = false;
-        // Check if a habit with the same name already exists
+            // Check if a habit with the same name already exists
         } if (!habits.habitArr.every(habit => habit.name.toLowerCase() !== name.toLowerCase())) {
             toggleClasses(repeatedNameAlert, 'hide', 'show');
             allowSubmit = false;
-        // Check if goal is an integer
+            // Check if goal is an integer
         } if (!Number.isInteger(parseFloat(goal)) && goal !== '') {
             toggleClasses(wrongDataTypeAlert, 'hide', 'show');
             allowSubmit = false;
@@ -90,7 +90,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     })
 
-    form.querySelector('#cancelForm').addEventListener('click', () => {
+    // form.querySelector('#cancelForm').addEventListener('click', () => {
+    //     // Close displayed alerts
+    //     closeAlerts();
+    //     // Set form inputs to empty strings
+    //     document.querySelector('#name').value = '';
+    //     document.querySelector('#goal').value = '';
+
+    // })
+    $('#formModal').on('hide.bs.modal', function (e) {
         // Close displayed alerts
         closeAlerts();
         // Set form inputs to empty strings
@@ -98,7 +106,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector('#goal').value = '';
 
     })
-
     habitContainer.addEventListener('click', (e) => {
         if (e.target.tagName === 'BUTTON' || e.target.tagName === 'I') {
             // DOM Elements
@@ -122,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 div.lastElementChild.firstElementChild.textContent = habit.complete;
 
-            // Check if the remove button was clicked
+                // Check if the remove button was clicked
             } else if (button.classList.contains('delete-btn')) {
                 // Open modal to confirm deletion
                 $('#deleteHabitModal').modal('show');
@@ -133,9 +140,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     setTimeout(() => {
                         div.remove();
                         Storage.removeHabit(habit)
-                        habits.remove(habit);    
+                        habits.remove(habit);
                     }, 500)
-    
+
                 })
             }
         }
