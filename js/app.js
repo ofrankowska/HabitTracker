@@ -73,6 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } if (!Number.isInteger(parseFloat(goal)) && goal !== '') {
             toggleClasses(wrongDataTypeAlert, 'hide', 'show');
             allowSubmit = false;
+
         } if (allowSubmit) {
             // Close modal
             $('#formModal').modal("hide");
@@ -121,14 +122,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 div.lastElementChild.firstElementChild.textContent = habit.complete;
 
-                // Check if the remove button was clicked
+            // Check if the remove button was clicked
             } else if (button.classList.contains('delete-btn')) {
-                div.classList.add('delete');
-                setTimeout(() => {
-                    div.remove();
-                }, 500)
-                Storage.removeHabit(habit)
-                habits.remove(habit);
+                // Open modal to confirm deletion
+                $('#deleteHabitModal').modal('show');
+                // Delete habit once deletion is confirmed
+                document.querySelector('#delete-btn').addEventListener('click', () => {
+                    $('#deleteHabitModal').modal('hide');
+                    div.classList.add('delete');
+                    setTimeout(() => {
+                        div.remove();
+                        Storage.removeHabit(habit)
+                        habits.remove(habit);    
+                    }, 500)
+    
+                })
             }
         }
 
