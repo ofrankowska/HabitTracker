@@ -3,7 +3,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('form');
     const checkboxArray = form.querySelectorAll('.custom-checkbox');
     const habitContainer = document.querySelector('#habitContainer');
-    const alert = form.querySelector('.alert');
+    const emptyInputAlert = form.querySelector('#empty-input-alert');
+    const repeatedNameAlert = form.querySelector('#repeated-name-alert');
+    const wrongDataTypeAlert = form.querySelector('#wrong-data-type-alert');
 
     function updateDate() {
         const day = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate())
@@ -26,9 +28,15 @@ document.addEventListener('DOMContentLoaded', () => {
         // If the class exists, remove it, if not, then add it
         classNames.forEach(className => element.classList.toggle(className));
     }
-
+    function closeAlerts(){
+        document.querySelectorAll('.alert').forEach(alert => {
+            if (alert.classList.contains('show')) {
+                toggleClasses(alert, 'hide', 'show');
+            }
+        })
+    }
     form.querySelector('.colorPicker').addEventListener('change', (e) => {
-        // Whenever a checkbox is checked, uncheck the previously checked one
+        // Whenever a new checkbox is being checked, uncheck the one that is currently checked
         for (let checkbox of checkboxArray) {
             const checkboxInput = checkbox.firstElementChild;
             if (checkboxInput.checked) {
@@ -43,23 +51,29 @@ document.addEventListener('DOMContentLoaded', () => {
         // DOM Elements
         const name = document.querySelector('#name').value;
         const goal = document.querySelector('#goal').value;
-
         // Convert checkboxArray from an array-like-object into an array, find the checked checkbox and get its id
         const color = [].slice.call(checkboxArray).filter(checkbox => checkbox.children[0].checked)[0].id;
 
         // Prevent the form from submitting 
         e.preventDefault();
 
+        // Close alerts that were displayed after previous submit
+        closeAlerts();
+
+        let allowSubmit = true;
         // Check if there are any fields that were left blank
         if (name === '' || goal === '') {
-            toggleClasses(alert, 'hide', 'show');
-
-        } else {
-            // Close alert if it's displayed
-            if (alert.classList.contains('show')) {
-                toggleClasses(alert, 'hide', 'show');
-            }
-
+            toggleClasses(emptyInputAlert, 'hide', 'show');
+            allowSubmit = false;
+        // Check if a habit with the same name already exists
+        } if (!habits.habitArr.every(habit => habit.name.toLowerCase() !== name.toLowerCase())) {
+            toggleClasses(repeatedNameAlert, 'hide', 'show');
+            allowSubmit = false;
+        // Check if goal is an integer
+        } if (!Number.isInteger(parseFloat(goal)) && goal !== '') {
+            toggleClasses(wrongDataTypeAlert, 'hide', 'show');
+            allowSubmit = false;
+        } if (allowSubmit) {
             // Close modal
             $('#formModal').modal("hide");
 
@@ -76,9 +90,8 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
     form.querySelector('#cancelForm').addEventListener('click', () => {
-        if (alert.classList.contains('show')) {
-            toggleClasses(alert, 'hide', 'show');
-        }
+        // Close displayed alerts
+        closeAlerts();
         // Set form inputs to empty strings
         document.querySelector('#name').value = '';
         document.querySelector('#goal').value = '';
