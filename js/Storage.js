@@ -18,7 +18,6 @@ class Storage {
     static removeHabit(id) {
         const habits = this.getHabits();
         habits.forEach((habit, index) => {
-            console.log(habit.id, id)
             if (habit.id == id) {
                 habits.splice(index, 1)
             }
@@ -47,7 +46,6 @@ class Storage {
         } else {
             day = JSON.parse(localStorage.getItem('day'));
         }
-        // 1571263200000
         return day;
     }
     static changeDate(day){

@@ -103,8 +103,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const progressBar = div.children[1].firstElementChild.firstElementChild;
 
             // Get the chosen habit 
-            const habit = habits.habitArr.filter(obj => obj.id == div.id)[0];
-
+            const habit = habits.habitArr.find(obj => obj.id === div.id);
+            console.log(habit)
             // Check if the progress button was clicked
             if (button.classList.contains('progress-btn')) {
                 // Add progress 
@@ -130,7 +130,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         div.remove();
                         Storage.removeHabit(habit.id)
                         habits.remove(habit);
-                        console.log(habits.habitArr)
                     }, 500)
 
                 })

@@ -18,7 +18,7 @@ class Habits{
     getStoredHabits(){
         const storedHabits = Storage.getHabits();
         storedHabits.forEach((habit) => {
-            habit = new Habit(habit.name, habit.goal, habit.color, habit.complete);
+            habit = new Habit(habit.name, habit.goal, habit.color, habit.id, habit.complete);
             this.add(habit);
         })
     

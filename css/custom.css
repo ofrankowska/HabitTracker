@@ -6,6 +6,9 @@ body{
     /* background by SVGBackgrounds.com */
     background-attachment: fixed;
     background-size: cover;
+    display:flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 .bg-dark,
 .btn-dark {
@@ -153,3 +156,39 @@ form, .alert{
     justify-content: center;
 }
 
+/* footer */
+
+.sticky-footer {
+    margin-top: auto;
+    padding: 15px 0;
+    opacity: 0.7
+}
+.sticky-footer .container{
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+.sticky-footer a{
+    color: rgb(77, 147, 245);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.sticky-footer a:hover{
+    color: white;
+    transition: color 0.3s ease-in;
+}
+
+.sticky-footer i {
+    font-size: 2em;
+    margin-right: 8px;
+}
+
+@media (max-width: 767.98px) {
+    .sticky-footer .container{
+        justify-content: center;
+    }
+    
+}
