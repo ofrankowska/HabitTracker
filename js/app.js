@@ -1,141 +1,145 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
+  // DOM Elements
+  const form = document.querySelector("form");
+  const checkboxArray = form.querySelectorAll(".custom-checkbox");
+  const habitContainer = document.querySelector("#habitContainer");
+  const emptyInputAlert = form.querySelector("#empty-input-alert");
+  const repeatedNameAlert = form.querySelector("#repeated-name-alert");
+  const wrongDataTypeAlert = form.querySelector("#wrong-data-type-alert");
+
+  const date = new Date(
+    new Date().getFullYear(),
+    new Date().getMonth(),
+    new Date().getDate()
+  ).getTime();
+  // Check if the date is different than in the local storage
+  if (date !== Storage.getDate()) {
+    // Update date in the local storage
+    Storage.updateDate(date);
+    // Set the complete parameter to 0 for every habit in the local storage
+    Storage.resetComplete();
+  }
+  // create HabitList class instance
+  const habitList = new HabitList();
+  // Display all habits thst are in the local storage
+  habitList.addStoredHabitsToPage();
+
+  form.querySelector(".colorPicker").addEventListener("change", e => {
+    // Whenever a user wants to check a checkbox, uncheck the one that is currently checked
+    for (let checkbox of checkboxArray) {
+      const checkboxInput = checkbox.firstElementChild;
+      if (checkboxInput.checked) {
+        checkboxInput.checked = "";
+      }
+    }
+    // Check the clicked checkbox
+    e.target.checked = "checked";
+  });
+
+  form.addEventListener("submit", e => {
     // DOM Elements
-    const form = document.querySelector('form');
-    const checkboxArray = form.querySelectorAll('.custom-checkbox');
-    const habitContainer = document.querySelector('#habitContainer');
-    const emptyInputAlert = form.querySelector('#empty-input-alert');
-    const repeatedNameAlert = form.querySelector('#repeated-name-alert');
-    const wrongDataTypeAlert = form.querySelector('#wrong-data-type-alert');
+    const name = document.querySelector("#name").value;
+    const goal = document.querySelector("#goal").value;
+    // Convert checkboxDivArray from an array-like-object into an array, find the checked checkbox div and then get its id
+    const [checkboxDiv] = [].slice
+      .call(checkboxArray)
+      .filter(checkbox => checkbox.children[0].checked);
+    const color = checkboxDiv.id;
+    // Prevent the form from submitting
+    e.preventDefault();
 
-    function updateDate() {
-        const day = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate())
-            .getTime();
-        // Check if the date is different than in the local storage
-        if (day !== Storage.getDate()) {
-            // Update date in the local storage
-            Storage.changeDate(day);
-            // Set the complete parameter to 0 for every habit in the local storage
-            Storage.updateComplete();
-        }
+    // Close alerts that were displayed after previous submit
+    closeAlerts();
+
+    let allowSubmit = true;
+    // Check if there are any fields that were left blank
+    if (name === "" || goal === "") {
+      toggleClasses(emptyInputAlert, "hide", "show");
+      allowSubmit = false;
+      // Check if a habit with the same name already exists
     }
-
-    updateDate();
-    const habits = new Habits();
-    // Display all habits thst are in the local storage
-    habits.getStoredHabits();
-
-    function toggleClasses(element, ...classNames) {
-        // If the class exists, remove it, if not, then add it
-        classNames.forEach(className => element.classList.toggle(className));
+    if (
+      !habitList.arrayOfObjects.every(
+        habit => habit.name.toLowerCase() !== name.toLowerCase()
+      )
+    ) {
+      toggleClasses(repeatedNameAlert, "hide", "show");
+      allowSubmit = false;
+      // Check if goal is an integer
     }
-    function closeAlerts() {
-        document.querySelectorAll('.alert').forEach(alert => {
-            if (alert.classList.contains('show')) {
-                toggleClasses(alert, 'hide', 'show');
-            }
-        })
+    if (!parseInt(goal) && goal !== "") {
+      toggleClasses(wrongDataTypeAlert, "hide", "show");
+      allowSubmit = false;
     }
-    form.querySelector('.colorPicker').addEventListener('change', (e) => {
-        // Whenever a new checkbox is being checked, uncheck the one that is currently checked
-        for (let checkbox of checkboxArray) {
-            const checkboxInput = checkbox.firstElementChild;
-            if (checkboxInput.checked) {
-                checkboxInput.checked = '';
-            }
-        }
-        e.target.checked = 'checked'
-    })
+    if (allowSubmit) {
+      // Close modal
+      $("#formModal").modal("hide");
 
-    // When the create habit form is submitted
-    form.addEventListener('submit', (e) => {
-        // DOM Elements
-        const name = document.querySelector('#name').value;
-        const goal = document.querySelector('#goal').value;
-        // Convert checkboxArray from an array-like-object into an array, find the checked checkbox and get its id
-        const color = [].slice.call(checkboxArray).filter(checkbox => checkbox.children[0].checked)[0].id;
+      // Create a habit
+      const habit = new Habit(name, parseInt(goal), color, uuidv1());
+      habitList.add(habit);
+      Storage.addHabit(habit);
+    }
+  });
+  // When the hide instance method has been called on create habit modal
+  $("#formModal").on("hide.bs.modal", function(e) {
+    // Close displayed alerts
+    closeAlerts();
+    // Set form inputs to empty strings
+    document.querySelector("#name").value = "";
+    document.querySelector("#goal").value = "";
+  });
 
-        // Prevent the form from submitting 
-        e.preventDefault();
+  habitContainer.addEventListener("click", e => {
+    if (e.target.tagName === "BUTTON" || e.target.tagName === "I") {
+      // DOM Elements
+      const button =
+        e.target.tagName === "BUTTON" ? e.target : e.target.parentNode;
+      const div = button.parentNode.parentNode;
+      const progressBar = div.children[1].firstElementChild.firstElementChild;
 
-        // Close alerts that were displayed after previous submit
-        closeAlerts();
+      // Get the chosen habit
+      const habit = habitList.arrayOfObjects.find(obj => obj.id === div.id);
+      // Object destructuring
+      const { goal, id } = habit;
+      let { complete } = habit;
+      // Check if the progress button was clicked
+      if (button.classList.contains("progress-btn")) {
+        // Add progress
+        complete += 1;
+        Storage.updateHabit(habit, complete);
+        toggleClasses(
+          progressBar,
+          "progress-bar-striped",
+          "progress-bar-animated"
+        );
+        setTimeout(() => {
+          toggleClasses(
+            progressBar,
+            "progress-bar-striped",
+            "progress-bar-animated"
+          );
+        }, 800);
+        progressBar.style.width = getProgress(complete, goal);
+        div.lastElementChild.firstElementChild.textContent = complete;
 
-        let allowSubmit = true;
-        // Check if there are any fields that were left blank
-        if (name === '' || goal === '') {
-            toggleClasses(emptyInputAlert, 'hide', 'show');
-            allowSubmit = false;
-            // Check if a habit with the same name already exists
-        } if (!habits.habitArr.every(habit => habit.name.toLowerCase() !== name.toLowerCase())) {
-            toggleClasses(repeatedNameAlert, 'hide', 'show');
-            allowSubmit = false;
-            // Check if goal is an integer
-        } if (!Number.isInteger(parseFloat(goal)) && goal !== '') {
-            toggleClasses(wrongDataTypeAlert, 'hide', 'show');
-            allowSubmit = false;
-
-        } if (allowSubmit) {
-            // Close modal
-            $('#formModal').modal("hide");
-
-            // Create a habit
-            const habit = new Habit(name, goal, color, uuidv1())
-            habits.add(habit);
-            Storage.addHabit(habit);
-
-        }
-    })
-    // When the hide instance method has been called on create habit modal
-    $('#formModal').on('hide.bs.modal', function (e) {
-        // Close displayed alerts
-        closeAlerts();
-        // Set form inputs to empty strings
-        document.querySelector('#name').value = '';
-        document.querySelector('#goal').value = '';
-
-    })
-
-    habitContainer.addEventListener('click', (e) => {
-        if (e.target.tagName === 'BUTTON' || e.target.tagName === 'I') {
-            // DOM Elements
-            const button = e.target.tagName === 'BUTTON' ? e.target : e.target.parentNode;
-            const div = button.parentNode.parentNode;
-            const progressBar = div.children[1].firstElementChild.firstElementChild;
-
-            // Get the chosen habit 
-            const habit = habits.habitArr.find(obj => obj.id === div.id);
-            console.log(habit)
-            // Check if the progress button was clicked
-            if (button.classList.contains('progress-btn')) {
-                // Add progress 
-                habit.complete += 1;
-                Storage.updateHabit(habit, habit.complete);
-                toggleClasses(progressBar, 'progress-bar-striped', 'progress-bar-animated')
-                setTimeout(() => {
-                    toggleClasses(progressBar, 'progress-bar-striped', 'progress-bar-animated')
-                }, 800)
-                progressBar.style.width = `${habit.complete / habit.goal * 100}%`;
-
-                div.lastElementChild.firstElementChild.textContent = habit.complete;
-
-                // Check if the remove button was clicked
-            } else if (button.classList.contains('delete-btn')) {
-                // Open modal to confirm deletion
-                $('#deleteHabitModal').modal('show');
-                // Delete habit once deletion is confirmed
-                document.querySelector('#delete-btn').addEventListener('click', () => {
-                    $('#deleteHabitModal').modal('hide');
-                    div.classList.add('delete');
-                    setTimeout(() => {
-                        div.remove();
-                        Storage.removeHabit(habit.id)
-                        habits.remove(habit);
-                    }, 500)
-
-                })
-            }
-        }
-
-    })
+        // Check if the remove button was clicked
+      } else if (button.classList.contains("delete-btn")) {
+        // Open modal to confirm deletion
+        $("#deleteHabitModal").modal("show");
+        // Delete habit once deletion is confirmed
+        document.querySelector("#delete-btn").addEventListener("click", () => {
+          $("#deleteHabitModal").modal("hide");
+          // Animate
+          div.classList.add("scaleDown");
+          // Remove from Storage, habitList and then after 0.5s from DOM
+          Storage.removeHabit(id);
+          habitList.remove(habit);
+          setTimeout(() => {
+            div.remove();
+          }, 500);
+        });
+      }
+    }
+  });
 });
-
