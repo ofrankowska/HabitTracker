@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let allowSubmit = true;
     // Check if there are any fields that were left blank
     if (name === "" || goal === "") {
-      toggleClasses(emptyInputAlert, "hide", "show");
+      toggleClasses(emptyInputAlert, "alert-hide", "alert-show");
       allowSubmit = false;
       // Check if a habit with the same name already exists
     }
@@ -63,12 +63,12 @@ document.addEventListener("DOMContentLoaded", () => {
         habit => habit.name.toLowerCase() !== name.toLowerCase()
       )
     ) {
-      toggleClasses(repeatedNameAlert, "hide", "show");
+      toggleClasses(repeatedNameAlert, "alert-hide", "alert-show");
       allowSubmit = false;
       // Check if goal is an integer
     }
     if (!parseInt(goal) && goal !== "") {
-      toggleClasses(wrongDataTypeAlert, "hide", "show");
+      toggleClasses(wrongDataTypeAlert, "alert-hide", "alert-show");
       allowSubmit = false;
     }
     if (allowSubmit) {
@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
       $("#formModal").modal("hide");
 
       // Create a habit
-      const habit = new Habit(name, parseInt(goal), color, uuidv1());
+      const habit = new Habit(name, parseInt(goal), color, generateId());
       habitList.add(habit);
       Storage.addHabit(habit);
     }
@@ -104,7 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const { goal, id } = habit;
       let { complete } = habit;
       // Check if the progress button was clicked
-      if (button.classList.contains("progress-btn")) {
+      if (button.classList.contains("btn-progress")) {
         // Add progress
         complete += 1;
         Storage.updateHabit(habit, complete);
@@ -124,14 +124,14 @@ document.addEventListener("DOMContentLoaded", () => {
         div.lastElementChild.firstElementChild.textContent = complete;
 
         // Check if the remove button was clicked
-      } else if (button.classList.contains("delete-btn")) {
+      } else if (button.classList.contains("btn-delete")) {
         // Open modal to confirm deletion
         $("#deleteHabitModal").modal("show");
         // Delete habit once deletion is confirmed
-        document.querySelector("#delete-btn").addEventListener("click", () => {
+        document.querySelector("#btn-delete").addEventListener("click", () => {
           $("#deleteHabitModal").modal("hide");
           // Animate
-          div.classList.add("scaleDown");
+          div.classList.add("habit-scaleDown");
           // Remove from Storage, habitList and then after 0.5s from DOM
           Storage.removeHabit(id);
           habitList.remove(habit);

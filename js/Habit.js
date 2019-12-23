@@ -6,9 +6,9 @@ class Habit {
     this.id = id;
     this.complete = complete;
   }
-  addHabitToPage() {
+  addHabitToPage = () => {
     habitContainer.innerHTML += `
-        <div id=${this.id} class="showHabit">
+        <div id=${this.id} class="habit-show">
             <h4 class="text-white">${this.name}</h4>
             <div class="d-flex ">
                 <div class="progress">
@@ -20,8 +20,8 @@ class Habit {
     )}" aria-valuenow="25"
                         aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
-                <button type="button" class="btn btn-dark progress-btn"><i class="fas fa-chevron-right"></i></button>
-                <button type="button" class="btn btn-dark delete-btn"><i class="fas fa-times"></i></button>
+                <button type="button" class="btn btn-dark btn-progress"><i class="fas fa-chevron-right"></i></button>
+                <button type="button" class="btn btn-dark btn-delete"><i class="fas fa-times"></i></button>
         
             </div>
             <p class="text-white"><span class ="complete">${
@@ -29,5 +29,5 @@ class Habit {
             }</span> / <span class="goal">${this.goal}</span></p>
         </div>
         `;
-  }
+  };
 }
