@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
   habitList.addStoredHabitsToPage();
 
   const handleCheck = e => {
+    form.querySelector(".colorPicker").style.backgroundColor = "red";
     // Uncheck the checkbox that is currently checked
     for (let checkbox of checkboxArray) {
       const checkboxInput = checkbox.firstElementChild;
@@ -90,7 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   form.addEventListener("submit", e => handleSubmit(e));
-  document
+  form
     .querySelector("#createHabit")
     .addEventListener("touchend", e => handleSubmit(e));
 
