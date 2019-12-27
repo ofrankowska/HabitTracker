@@ -24,8 +24,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // Display all habits thst are in the local storage
   habitList.addStoredHabitsToPage();
 
-  form.querySelector(".colorPicker").addEventListener("change", e => {
-    // Whenever a user wants to check a checkbox, uncheck the one that is currently checked
+  const handleCheck = e => {
+    // Uncheck the checkbox that is currently checked
     for (let checkbox of checkboxArray) {
       const checkboxInput = checkbox.firstElementChild;
       if (checkboxInput.checked) {
@@ -34,9 +34,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     // Check the clicked checkbox
     e.target.checked = "checked";
-  });
+  };
+  form
+    .querySelector(".colorPicker")
+    .addEventListener("change", e => handleCheck(e));
 
-  form.addEventListener("submit", e => {
+  form
+    .querySelector(".colorPicker")
+    .addEventListener("touchend", e => handleCheck(e));
+
+  const handleSubmit = e => {
     // DOM Elements
     const name = document.querySelector("#name").value;
     const goal = document.querySelector("#goal").value;
@@ -80,7 +87,13 @@ document.addEventListener("DOMContentLoaded", () => {
       habitList.add(habit);
       Storage.addHabit(habit);
     }
-  });
+  };
+
+  form.addEventListener("submit", e => handleSubmit(e));
+  document
+    .querySelector("#createHabit")
+    .addEventListener("touchend", e => handleSubmit(e));
+
   // When the hide instance method has been called on create habit modal
   $("#formModal").on("hide.bs.modal", function(e) {
     // Close displayed alerts
