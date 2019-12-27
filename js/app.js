@@ -25,24 +25,21 @@ document.addEventListener("DOMContentLoaded", () => {
   habitList.addStoredHabitsToPage();
 
   const handleCheck = e => {
-    form.querySelector(".colorPicker").style.backgroundColor = "red";
-    // Uncheck the checkbox that is currently checked
-    for (let checkbox of checkboxArray) {
-      const checkboxInput = checkbox.firstElementChild;
-      if (checkboxInput.checked) {
-        checkboxInput.checked = "";
+    if (e.target.className.substring(0, 14) === "custom-control") {
+      // Uncheck the checkbox that is currently checked
+      for (let checkbox of checkboxArray) {
+        const checkboxInput = checkbox.firstElementChild;
+        if (checkboxInput.checked) {
+          checkboxInput.checked = "";
+        }
       }
+      // Check the clicked checkbox
+      e.target.checked = "checked";
     }
-    // Check the clicked checkbox
-    e.target.checked = "checked";
   };
   form
     .querySelector(".colorPicker")
-    .addEventListener("change", e => handleCheck(e));
-
-  form
-    .querySelector(".colorPicker")
-    .addEventListener("touchend", e => handleCheck(e));
+    .addEventListener("click", e => handleCheck(e));
 
   const handleSubmit = e => {
     // DOM Elements
