@@ -15,7 +15,22 @@ class Storage {
     localStorage.setItem("date", JSON.stringify(newDate));
   }
   static getHabitList() {
-    const habitList = JSON.parse(localStorage.getItem("habitList")) || [];
+    const habitList = JSON.parse(localStorage.getItem("habitList")) || [
+      {
+        name: "Learn something new",
+        goal: 2,
+        color: "success",
+        id: "8x7x0jmofan",
+        complete: 0
+      },
+      {
+        name: "Exercise",
+        goal: 1,
+        color: "warning",
+        id: "jfmggnomvlb",
+        complete: 0
+      }
+    ];
     return habitList;
   }
   static updatHabitList(newHabitList) {

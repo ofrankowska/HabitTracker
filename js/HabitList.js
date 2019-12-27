@@ -15,9 +15,11 @@ class HabitList {
   };
   addStoredHabitsToPage = () => {
     const storedHabitList = Storage.getHabitList();
-    storedHabitList.forEach(object => {
-      const habit = new Habit(...Object.values(object));
-      this.add(habit);
-    });
+    if (storedHabitList) {
+      storedHabitList.forEach(object => {
+        const habit = new Habit(...Object.values(object));
+        this.add(habit);
+      });
+    }
   };
 }

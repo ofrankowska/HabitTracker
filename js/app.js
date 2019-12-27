@@ -25,21 +25,19 @@ document.addEventListener("DOMContentLoaded", () => {
   habitList.addStoredHabitsToPage();
 
   const handleCheck = e => {
-    if (e.target.className.substring(0, 14) === "custom-control") {
-      // Uncheck the checkbox that is currently checked
-      for (let checkbox of checkboxArray) {
-        const checkboxInput = checkbox.firstElementChild;
-        if (checkboxInput.checked) {
-          checkboxInput.checked = "";
-        }
+    // Uncheck the checkbox that is currently checked
+    for (let checkbox of checkboxArray) {
+      const checkboxInput = checkbox.firstElementChild;
+      if (checkboxInput.checked) {
+        checkboxInput.checked = "";
       }
-      // Check the clicked checkbox
-      e.target.checked = "checked";
     }
+    // Check the clicked checkbox
+    e.target.checked = "checked";
   };
   form
     .querySelector(".colorPicker")
-    .addEventListener("click", e => handleCheck(e));
+    .addEventListener("change", e => handleCheck(e));
 
   const handleSubmit = e => {
     // DOM Elements
@@ -89,8 +87,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   form.addEventListener("submit", e => handleSubmit(e));
   form
-    .querySelector("#createHabit")
-    .addEventListener("touchend", e => handleSubmit(e));
+    .querySelector(".btn-create")
+    .addEventListener("click", e => handleSubmit(e));
 
   // When the hide instance method has been called on create habit modal
   $("#formModal").on("hide.bs.modal", function(e) {
