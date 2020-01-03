@@ -1,4 +1,6 @@
-setTimeout(() => {
+$(document).ready(function() {
+  console.log(document.readyState);
+
   // DOM Elements
   const form = document.querySelector("form");
   const checkboxArray = form.querySelectorAll(".custom-checkbox");
@@ -151,4 +153,4 @@ setTimeout(() => {
       }
     }
   });
-}, 5000);
+});
