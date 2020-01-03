@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 document.addEventListener("DOMContentLoaded", () => {
   // DOM Elements
   const form = document.querySelector("form");
@@ -6,6 +7,33 @@ document.addEventListener("DOMContentLoaded", () => {
   const emptyInputAlert = form.querySelector("#empty-input-alert");
   const repeatedNameAlert = form.querySelector("#repeated-name-alert");
   const wrongDataTypeAlert = form.querySelector("#wrong-data-type-alert");
+=======
+// DOM Elements
+const form = document.querySelector("form");
+const checkboxArray = form.querySelectorAll(".custom-checkbox");
+const habitContainer = document.querySelector("#habitContainer");
+const emptyInputAlert = form.querySelector("#empty-input-alert");
+const repeatedNameAlert = form.querySelector("#repeated-name-alert");
+const wrongDataTypeAlert = form.querySelector("#wrong-data-type-alert");
+
+form.style.backgroundColor = "red";
+const date = new Date(
+  new Date().getFullYear(),
+  new Date().getMonth(),
+  new Date().getDate()
+).getTime();
+// Check if the date is different than in the local storage
+if (date !== Storage.getDate()) {
+  // Update date in the local storage
+  Storage.updateDate(date);
+  // Set the complete parameter to 0 for every habit in the local storage
+  Storage.resetComplete();
+}
+// create HabitList class instance
+const habitList = new HabitList();
+// Display all habits thst are in the local storage
+habitList.addStoredHabitsToPage();
+>>>>>>> 1ec81e5764c6df8ad5c55e79ed93bdadbe6e8a11
 
   const date = new Date(
     new Date().getFullYear(),
