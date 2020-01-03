@@ -1,4 +1,3 @@
-window.alert("js working");
 // DOM Elements
 const form = document.querySelector("form");
 const checkboxArray = form.querySelectorAll(".custom-checkbox");
@@ -7,6 +6,7 @@ const emptyInputAlert = form.querySelector("#empty-input-alert");
 const repeatedNameAlert = form.querySelector("#repeated-name-alert");
 const wrongDataTypeAlert = form.querySelector("#wrong-data-type-alert");
 
+form.style.backgroundColor = "red";
 const date = new Date(
   new Date().getFullYear(),
   new Date().getMonth(),
